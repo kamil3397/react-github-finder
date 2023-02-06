@@ -7,7 +7,7 @@ const github = axios.create({
   headers: { Authorization: `token ${GITHUB_TOKEN}` },
 })
 
-//Search results
+// Get search results
 export const searchUsers = async (text) => {
   const params = new URLSearchParams({
     q: text,
@@ -17,10 +17,9 @@ export const searchUsers = async (text) => {
   return response.data.items
 }
 
-//Get user and repos
-
+// Get user and repos
 export const getUserAndRepos = async (login) => {
-  const [user, repos] = await Promise.all([github.get(`/users/${login}`, github.get`/users/${login}/repos`)])
+  const [user, repos] = await Promise.all([github.get(`/users/${login}`), github.get(`/users/${login}/repos`)])
 
   return { user: user.data, repos: repos.data }
 }
